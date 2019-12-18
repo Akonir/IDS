@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="js/proj4.js"></script>
+        <script src="js/proj4leaflet.js"></script>
+        <script src="data/Batas_Kec_NAD_0.js"></script>
+        <script src="data/TingkatKerawananBanjir_3.js"></script>
+        <script>
+        var crs = new L.Proj.CRS('EPSG:32646', '+proj=utm +zone=46 +datum=WGS84 +units=m +no_defs', {
+            resolutions: [2800, 1400, 700, 350, 175, 84, 42, 21, 11.2, 5.6, 2.8, 1.4, 0.7, 0.35, 0.14, 0.07],
+        });
+        var map = L.map('map', {
+            crs: crs,
+            continuousWorld: false,
+            worldCopyJump: false, 
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[5.538246426205458,95.2886418468193],[5.5871974404456175,95.38549035472236]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>');
+        L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .className += ' fas fa-ruler';
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        function pop_Batas_Kec_NAD_0(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>KECAMATAN</strong><br />' + (feature.properties['KECAMATAN'] !== null ? Autolinker.link(String(feature.properties['KECAMATAN'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">KABUPATEN</th>\
+                        <td>' + (feature.properties['KABUPATEN'] !== null ? Autolinker.link(String(feature.properties['KABUPATEN'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">PROVINSI</th>\
+                        <td>' + (feature.properties['PROVINSI'] !== null ? Autolinker.link(String(feature.properties['PROVINSI'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Batas_Kec_NAD_0_0() {
+            return {
+                pane: 'pane_Batas_Kec_NAD_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(125,139,143,1.0)',
+            }
+        }
+        map.createPane('pane_Batas_Kec_NAD_0');
+        map.getPane('pane_Batas_Kec_NAD_0').style.zIndex = 400;
+        map.getPane('pane_Batas_Kec_NAD_0').style['mix-blend-mode'] = 'normal';
+        var layer_Batas_Kec_NAD_0 = new L.geoJson(json_Batas_Kec_NAD_0, {
+            attribution: '',
+            pane: 'pane_Batas_Kec_NAD_0',
+            onEachFeature: pop_Batas_Kec_NAD_0,
+            style: style_Batas_Kec_NAD_0_0,
+        });
+        bounds_group.addLayer(layer_Batas_Kec_NAD_0);
+        map.addLayer(layer_Batas_Kec_NAD_0);
+        var img_Citra_KotaBandaAceh_1 = 'data/Citra_KotaBandaAceh_1.png';
+        var img_bounds_Citra_KotaBandaAceh_1 = [[5.516589109635342,95.28222877423264],[5.608377827478988,95.37824777502634]];
+        var layer_Citra_KotaBandaAceh_1 = new L.imageOverlay(img_Citra_KotaBandaAceh_1, img_bounds_Citra_KotaBandaAceh_1);
+        bounds_group.addLayer(layer_Citra_KotaBandaAceh_1);
+        map.addLayer(layer_Citra_KotaBandaAceh_1);
+        var img_Slope_Kota_BandaAceh_2 = 'data/Slope_Kota_BandaAceh_2.png';
+        var img_bounds_Slope_Kota_BandaAceh_2 = [[5.51619887753136,95.28162249852079],[5.608095473035069,95.37862295086745]];
+        var layer_Slope_Kota_BandaAceh_2 = new L.imageOverlay(img_Slope_Kota_BandaAceh_2, img_bounds_Slope_Kota_BandaAceh_2);
+        bounds_group.addLayer(layer_Slope_Kota_BandaAceh_2);
+        map.addLayer(layer_Slope_Kota_BandaAceh_2);
+        function pop_TingkatKerawananBanjir_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Bobot_Ting</th>\
+                        <td>' + (feature.properties['Bobot_Ting'] !== null ? Autolinker.link(String(feature.properties['Bobot_Ting'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Luas</th>\
+                        <td>' + (feature.properties['Luas'] !== null ? Autolinker.link(String(feature.properties['Luas'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Kerawanan</strong><br />' + (feature.properties['Kerawanan'] !== null ? Autolinker.link(String(feature.properties['Kerawanan'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_TingkatKerawananBanjir_3_0(feature) {
+            switch(String(feature.properties['Kerawanan'])) {
+                case 'Sangat Rawan':
+                    return {
+                pane: 'pane_TingkatKerawananBanjir_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(254,12,0,1.0)',
+            }
+                    break;
+                case 'Cukup Rawan':
+                    return {
+                pane: 'pane_TingkatKerawananBanjir_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(220,220,58,1.0)',
+            }
+                    break;
+                case 'Tidak Rawan':
+                    return {
+                pane: 'pane_TingkatKerawananBanjir_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(131,228,39,1.0)',
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_TingkatKerawananBanjir_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(219,28,25,1.0)',
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_TingkatKerawananBanjir_3');
+        map.getPane('pane_TingkatKerawananBanjir_3').style.zIndex = 403;
+        map.getPane('pane_TingkatKerawananBanjir_3').style['mix-blend-mode'] = 'normal';
+        var layer_TingkatKerawananBanjir_3 = new L.geoJson(json_TingkatKerawananBanjir_3, {
+            attribution: '',
+            pane: 'pane_TingkatKerawananBanjir_3',
+            onEachFeature: pop_TingkatKerawananBanjir_3,
+            style: style_TingkatKerawananBanjir_3_0,
+        });
+        bounds_group.addLayer(layer_TingkatKerawananBanjir_3);
+        map.addLayer(layer_TingkatKerawananBanjir_3);
+        var osmGeocoder = new L.Control.Geocoder({
+            collapsed: true,
+            position: 'topleft',
+            text: 'Search',
+            title: 'Testing'
+        }).addTo(map);
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .className += ' fa fa-search';
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .title += 'Search for a place';
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'Tingkat Kerawanan Banjir<br /><table><tr><td style="text-align: center;"><img src="legend/TingkatKerawananBanjir_3_SangatRawan0.png" /></td><td>Sangat Rawan</td></tr><tr><td style="text-align: center;"><img src="legend/TingkatKerawananBanjir_3_CukupRawan1.png" /></td><td>Cukup Rawan</td></tr><tr><td style="text-align: center;"><img src="legend/TingkatKerawananBanjir_3_TidakRawan2.png" /></td><td>Tidak Rawan</td></tr><tr><td style="text-align: center;"><img src="legend/TingkatKerawananBanjir_3_3.png" /></td><td></td></tr></table>': layer_TingkatKerawananBanjir_3,"Slope_Kota_BandaAceh": layer_Slope_Kota_BandaAceh_2,"Citra_KotaBandaAceh": layer_Citra_KotaBandaAceh_1,'<img src="legend/Batas_Kec_NAD_0.png" /> Batas_Kec_NAD': layer_Batas_Kec_NAD_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        L.ImageOverlay.include({
+            getBounds: function () {
+                return this._bounds;
+            }
+        });
+        </script>
+    </body>
+</html>
